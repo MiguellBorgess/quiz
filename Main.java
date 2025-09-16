@@ -2,21 +2,25 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Classe principal que inicializa o jogo no terminal.
+ * Responsável por coletar os dados iniciais e iniciar o fluxo do jogo.
+ */
 public class Main {
     private static final Scanner SC = new Scanner(System.in);
 
     public static void main(String[] args) {
+        // Exibe o título do jogo
         System.out.println("╔════════════════════════════╗");
         System.out.println(" ║    🎉 QUIZ TERMINAL 🎉   ║");
         System.out.println("╚════════════════════════════╝");
 
-
-        // Game Master
+        // Cadastro do Game Master
         System.out.print("Nome do Game Master: ");
         String nomeGM = lerNaoVazio();
         GameMaster gm = new GameMaster(nomeGM);
 
-        // Jogadores (mínimo 2)
+        // Cadastro da quantidade de jogadores (mínimo 2)
         int qtdJogadores = 0;
         while (qtdJogadores < 2) {
             System.out.print("Quantidade de jogadores (>=2): ");
@@ -31,6 +35,7 @@ public class Main {
             }
         }
 
+        // Cadastro dos jogadores
         List<Jogador> jogadores = new ArrayList<>();
         for (int i = 1; i <= qtdJogadores; i++) {
             System.out.print("Nome do jogador " + i + ": ");
@@ -38,11 +43,16 @@ public class Main {
             jogadores.add(new Jogador(nome));
         }
 
-        // Cria e inicia o jogo (5 rodadas; perguntas inseridas pelo GM a cada rodada)
+        // Criação e início do jogo
         Jogo jogo = new Jogo(gm, jogadores);
-        jogo.iniciar(); // o método já pedirá as perguntas de cada rodada no terminal
+        jogo.iniciar();
     }
 
+    /**
+     * Lê uma entrada do usuário garantindo que não esteja vazia.
+     *
+     * @return String não vazia
+     */
     private static String lerNaoVazio() {
         while (true) {
             String s = SC.nextLine().trim();
